@@ -2,7 +2,6 @@ import React from 'react'
 import Hero from './Hero'
 import CategoryCard from './CategoryCard'
 import ProductCard from './ProductCard'
-import Newsletter from './Newsletter'
 
 const categories = ['Electronics', 'Fashion', 'Home & Living', 'Sports']
 
@@ -34,8 +33,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <Newsletter />
     </div>
   )
 }
