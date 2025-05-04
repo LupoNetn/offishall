@@ -1,14 +1,38 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
-import { MdShoppingCart } from 'react-icons/md'
+import React, { useState } from 'react'
+import { MdShoppingCart, MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
 
 const Navbar = () => {
+    const [showDashboard,setShowDashboard] = useState(false)
   return (
    <>
     <nav className="bg-gray-950 text-gray-100 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="text-xl font-bold text-orange-500">
+          <div className="text-xl font-bold text-orange-500 flex items-center gap-2">
+            <div className="relative">
+                <button 
+                  type='button' 
+                  onClick={() => setShowDashboard(prev => !prev)}
+                  className="text-gray-500 hover:text-gray-400 transition-colors p-1 -ml-1"
+                >
+                    {showDashboard ? 
+                      <MdKeyboardArrowUp size={16} /> : 
+                      <MdKeyboardArrowDown size={16} />
+                    }
+                </button>
+                {showDashboard && (
+                    <div className="absolute top-8 left-0">
+                      <Link 
+                        href='/products'
+                        className="text-xs bg-gray-800/50 text-gray-400 px-2 py-1 rounded-md hover:bg-gray-800 hover:text-gray-300 transition-all duration-200 flex items-center gap-1 border border-gray-800"
+                      >
+                        Admin
+                      </Link>
+                    </div>
+                )}
+            </div>
             <Link href="/">Offishall</Link>
           </div>
           <div className="relative">
