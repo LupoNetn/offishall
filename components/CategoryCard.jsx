@@ -1,3 +1,5 @@
+
+
 const CategoryCard = ({ category, index }) => {
   return (
     <div className="relative overflow-hidden group cursor-pointer">
