@@ -1,10 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { MdAdd, MdEdit, MdDelete, MdClose } from 'react-icons/md'
+import { supabase } from '@/lib/supabase-client'  // Updated import path
+import { toast } from 'sonner'
 
-const page = () => {
+const Page = () => {
   const [products, setProducts] = useState([])
   const [showForm, setShowForm] = useState(false)
+  const [loading, setLoading] = useState(true)
+
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -13,18 +17,95 @@ const page = () => {
     image: null
   })
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
+  const fetchProducts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+      setProducts(data)
+    } catch (error) {
+      toast.error('Error fetching products', {
+        description: error.message
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setProducts([...products, formData])
-    // Reset form
-    setFormData({
-      name: '',
-      price: '',
-      category: '',
-      description: '',
-      image: null
-    })
-    setShowForm(false)
+    setLoading(true)
+
+    try {
+      let image_url = null
+      if (formData.image) {
+        const fileExt = formData.image.name.split('.').pop()
+        const fileName = `${Math.random()}.${fileExt}`
+        const { error: uploadError, data } = await supabase.storage
+          .from('product-images')
+          .upload(fileName, formData.image)
+
+        if (uploadError) throw uploadError
+        image_url = data.path
+      }
+
+      const { error } = await supabase
+        .from('products')
+        .insert([{
+          name: formData.name,
+          price: parseFloat(formData.price),
+          category: formData.category,
+          description: formData.description,
+          image_url
+        }])
+
+      if (error) throw error
+
+      setFormData({
+        name: '',
+        price: '',
+        category: '',
+        description: '',
+        image: null
+      })
+      setShowForm(false)
+      fetchProducts()
+
+      toast.success('Product added successfully')
+    } catch (error) {
+      toast.error('Error adding product', {
+        description: error.message
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDelete = async (id) => {
+    if (!confirm('Are you sure you want to delete this product?')) return
+
+    try {
+      const { error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+
+      fetchProducts()
+      toast.success('Product deleted successfully')
+    } catch (error) {
+      toast.error('Error deleting product', {
+        description: error.message
+      })
+    }
   }
 
   const handleChange = (e) => {
@@ -38,13 +119,11 @@ const page = () => {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="p-4 sm:p-6 md:p-8">
-        {/* Header */}
         <div className="max-w-7xl mx-auto mb-6 sm:mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-orange-500">Product Management</h1>
           <p className="text-sm sm:text-base text-gray-400 mt-2">Manage and organize your product catalog</p>
         </div>
 
-        {/* Products Section */}
         <div className="max-w-7xl mx-auto bg-gray-900/50 rounded-xl border border-gray-800">
           <div className="p-4 sm:p-6 border-b border-gray-800">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -62,7 +141,6 @@ const page = () => {
             </div>
           </div>
 
-          {/* Table */}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -75,20 +153,20 @@ const page = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-800">
-                {products.map((product, index) => (
-                  <tr key={index} className="hover:bg-gray-800/50 transition-colors">
+                {products.map((product) => (
+                  <tr key={product.id} className="hover:bg-gray-800/50 transition-colors">
                     <td className="py-4 px-4 sm:px-6">
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center overflow-hidden border-2 border-gray-700">
-                          {product.image ? (
-                            <img src={URL.createObjectURL(product.image)} alt={product.name} className="w-full h-full object-cover" />
+                          {product.image_url ? (
+                            <img src={`${supabase.storage.from('product-images').getPublicUrl(product.image_url).publicURL}`} alt={product.name} className="w-full h-full object-cover" />
                           ) : (
                             <span className="text-gray-400">No img</span>
                           )}
                         </div>
                         <div>
                           <h3 className="text-sm font-medium text-gray-100">{product.name}</h3>
-                          <p className="text-xs text-orange-500">ID: #{index + 1}</p>
+                          <p className="text-xs text-orange-500">ID: #{product.id}</p>
                         </div>
                       </div>
                     </td>
@@ -108,7 +186,10 @@ const page = () => {
                         <button className="text-gray-400 hover:text-orange-500 transition-colors p-1">
                           <MdEdit size={20} />
                         </button>
-                        <button className="text-gray-400 hover:text-red-500 transition-colors p-1">
+                        <button 
+                          onClick={() => handleDelete(product.id)}
+                          className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                        >
                           <MdDelete size={20} />
                         </button>
                       </div>
@@ -121,7 +202,6 @@ const page = () => {
         </div>
       </div>
 
-      {/* Modal Form - Make it responsive */}
       {showForm && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-gray-900 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-gray-800">
@@ -239,4 +319,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
