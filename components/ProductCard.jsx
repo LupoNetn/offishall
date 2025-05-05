@@ -1,17 +1,22 @@
-'use client'
-import { supabase } from '@/lib/supabase-client'
+"use client";
+import { CartContext } from "@/context/CartContext";
+import { supabase } from "@/lib/supabase-client";
+import { useContext } from "react";
 
 const ProductCard = ({ product }) => {
+
+  const {addToCart} = useContext(CartContext)
+
   return (
     <div className="bg-gray-900 rounded-lg overflow-hidden group">
       <div className="relative h-48 overflow-hidden">
         {product.image_url ? (
-          <img 
-            src={supabase.storage
-              .from('product-images')
-              .getPublicUrl(product.image_url)
-              .data.publicUrl
-            } 
+          <img
+            src={
+              supabase.storage
+                .from("product-images")
+                .getPublicUrl(product.image_url).data.publicUrl
+            }
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
           />
@@ -25,17 +30,21 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-100 mb-2">{product.name}</h3>
-        <p className="text-gray-400 text-sm mb-4 line-clamp-2">{product.description}</p>
+        <h3 className="text-lg font-semibold text-gray-100 mb-2">
+          {product.name}
+        </h3>
+        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+          {product.description}
+        </p>
         <div className="flex items-center justify-between">
           <span className="text-orange-500 font-bold">${product.price}</span>
-          <button className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded hover:bg-orange-500/20 transition-colors">
+          <button onClick={() => addToCart(product)} className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded hover:bg-orange-500/20 transition-colors">
             Add to Cart
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

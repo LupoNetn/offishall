@@ -10,6 +10,10 @@ const CartContextProvider = ({ children }) => {
     setShowCart(!showCart);
   };
 
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  
+  const totalPrice = cartItems.reduce((total,item) => total + item.price * item.quantity,0)
+
   const addToCart = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
     if (existingItem) {
@@ -32,7 +36,7 @@ const CartContextProvider = ({ children }) => {
   }
   return (
     <>
-      <CartContext.Provider value={{ showCart, toggleCart,addToCart,cartItems,removeFromCart }}>
+      <CartContext.Provider value={{ showCart, toggleCart,addToCart,cartItems,removeFromCart,totalQuantity,totalPrice }}>
         {children}
       </CartContext.Provider>
     </>

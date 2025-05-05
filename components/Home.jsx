@@ -11,6 +11,7 @@ const categories = ['Electronics', 'Fashion', 'Home & Living', 'Sports']
 const Home = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  
 
   useEffect(() => {
     fetchProducts()
