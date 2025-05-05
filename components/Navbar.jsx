@@ -1,10 +1,13 @@
 'use client'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { MdShoppingCart, MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md'
+import { CartContext } from '@/context/CartContext'
+import Cart from './Cart'
 
 const Navbar = () => {
     const [showDashboard,setShowDashboard] = useState(false)
+    const {toggleCart,showCart} = useContext(CartContext)
   return (
    <>
     <nav className="bg-gray-950 text-gray-100 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.3)] sticky top-0 z-50">
@@ -36,8 +39,8 @@ const Navbar = () => {
             <Link href="/">Offishall</Link>
           </div>
           <div className="relative">
-            <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-              <MdShoppingCart size={24} className="text-orange-500" />
+            <button onClick={toggleCart} className="p-2 hover:bg-gray-800 rounded-lg transition-colors" >
+              <MdShoppingCart size={24} className="text-orange-500 cursor-pointer" />
               <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                 0
               </span>
@@ -45,6 +48,9 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {showCart && (
+        <Cart />
+      )}
     </nav>
    </>
   )
