@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
 import { MdAdd, MdEdit, MdDelete, MdClose } from 'react-icons/md'
-import { supabase } from '@/lib/supabase-client'  // Updated import path
+import { supabase } from '../../../lib/supabase-client'  // Updated import path
 import { toast } from 'sonner'
 
 const Page = () => {
