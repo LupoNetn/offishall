@@ -66,7 +66,7 @@ const Navbar = () => {
         </nav>
        {showCart && (
          <div className="">
-         <div className="absolute top-10 z-60 lg:right-20 sm:right-10 max-sm:right-0 w-[80%] p-4 container max-w-[500px] border border-white-500 rounded-lg bg-white shadow-lg">
+         <div className="absolute top-10 z-60 lg:right-20 sm:right-10 max-sm:right-0 w-[90%] p-4 container max-w-[500px] border border-white-500 rounded-lg bg-white shadow-lg">
           <Cart />
          </div>
        </div>
