@@ -42,7 +42,7 @@ const Home = () => {
       {/* Featured Categories */}
       <section className="py-16 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-orange-500 mb-8">Popular Categories</h2>
+          <h2 className="text-3xl font-bold text-orange-500 mb-8">Categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category, index) => (
               <CategoryCard key={index} category={category} index={index} />

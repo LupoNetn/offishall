@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useState } from "react";
+import { toast } from 'sonner'
 
 export const CartContext = createContext();
 const CartContextProvider = ({ children }) => {
@@ -27,12 +28,14 @@ const CartContextProvider = ({ children }) => {
     } else {
       setCartItems((prevItems) => [...prevItems, { ...item, quantity: 1 }]);
     }
+    toast.success(`successfully added ${item.name} to cart!`)
   };
 
-  const removeFromCart = (itemId) => {
+  const removeFromCart = (item) => {
     setCartItems((prevItems) =>
-      prevItems.filter((cartItem) => cartItem.id !== itemId)
+      prevItems.filter((cartItem) => cartItem.id !== item.id)
     );
+    toast.success(`removed ${item.name} from cart!`)
   }
   return (
     <>

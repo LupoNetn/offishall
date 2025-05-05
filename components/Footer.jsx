@@ -22,7 +22,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-2">
                 <MdLocationOn className="text-orange-500" />
-                <span>OAU,ile-ife</span>
+                <span>Lagos & ife</span>
               </div>
             </div>
           </div>

@@ -82,7 +82,7 @@ const Cart = () => {
                       ${item.price.toFixed(2)}
                     </span>
                     <button
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item)}
                       className="text-gray-400 hover:text-red-500 transition-colors"
                     >
                       <FaTrash size={14} />
