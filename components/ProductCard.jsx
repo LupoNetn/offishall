@@ -1,6 +1,6 @@
 "use client";
-import { CartContext } from "@/context/CartContext";
-import { supabase } from "@/lib/supabase-client";
+import { CartContext } from "../context/CartContext";
+import { supabase } from "../lib/supabase-client";
 import { useContext } from "react";
 
 const ProductCard = ({ product }) => {

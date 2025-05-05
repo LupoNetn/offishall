@@ -1,8 +1,9 @@
 import React from 'react'
 import { FaShoppingCart, FaTrash } from 'react-icons/fa'
-import { CartContext } from '@/context/CartContext'
+import { CartContext } from '../context/CartContext'
 import { useContext } from 'react'
-import { supabase } from '@/lib/supabase-client'
+import { supabase } from '../lib/supabase-client'
+import Link from 'next/link'
 
 const Cart = () => {
   const { cartItems, removeFromCart, totalPrice, toggleCart } = useContext(CartContext)
@@ -102,8 +103,8 @@ const Cart = () => {
                 ${totalPrice.toFixed(2)}
               </span>
             </div>
-            <button className="w-full bg-orange-500 text-white py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors">
-              Checkout
+            <button onClick={toggleCart} className="w-full bg-orange-500 text-white py-3 rounded-lg font-medium hover:bg-orange-600 transition-colors">
+             <Link href='checkout'>Checkout</Link>
             </button>
           </div>
         </>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Hero from './Hero'
 import CategoryCard from './CategoryCard'
 import ProductCard from './ProductCard'
-import { supabase } from '@/lib/supabase-client'
+import { supabase } from '../lib/supabase-client'
 import { toast } from 'sonner'
 
 const categories = ['Electronics', 'Fashion', 'Home & Living', 'Sports']

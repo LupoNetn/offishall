@@ -6,7 +6,7 @@ import {
   MdKeyboardArrowUp,
   MdKeyboardArrowDown,
 } from "react-icons/md";
-import { CartContext } from "@/context/CartContext";
+import { CartContext } from "../context/CartContext";
 import Cart from "./Cart";
 
 const Navbar = () => {
