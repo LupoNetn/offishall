@@ -8,8 +8,9 @@ const ProductCard = ({ product }) => {
   const {addToCart} = useContext(CartContext)
 
   return (
-    <div className="bg-gray-900 rounded-lg overflow-hidden group">
-      <div className="relative h-48 overflow-hidden">
+    <div className="bg-gray-900 rounded-lg overflow-hidden group w-full max-w-xs mx-auto sm:max-w-full">
+
+      <div className="relative h-35 sm:h-48 overflow-hidden">
         {product.image_url ? (
           <img
             src={
@@ -36,7 +37,7 @@ const ProductCard = ({ product }) => {
         <p className="text-gray-400 text-sm mb-4 line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between">
+        <div className="flex max-sm:flex-col max-sm:items-start items-center justify-between">
           <span className="text-orange-500 font-bold">${product.price}</span>
           <button onClick={() => addToCart(product)} className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded hover:bg-orange-500/20 transition-colors">
             Add to Cart

@@ -2,7 +2,7 @@
 
 const CategoryCard = ({ category, index }) => {
   return (
-    <div className="relative overflow-hidden group cursor-pointer">
+    <div className="bg-gray-900 rounded-lg overflow-hidden group w-full max-w-xs mx-auto sm:max-w-full">
       <div className="h-64 bg-gray-800 rounded-lg overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
         <img 
