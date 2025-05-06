@@ -37,7 +37,7 @@ const Navbar = () => {
                   {showDashboard && (
                     <div className="absolute top-8 left-0">
                       <Link
-                        href="/products"
+                        href="/Adminproducts"
                         className="text-xs bg-gray-800/50 text-gray-400 px-2 py-1 rounded-md hover:bg-gray-800 hover:text-gray-300 transition-all duration-200 flex items-center gap-1 border border-gray-800"
                       >
                         Admin

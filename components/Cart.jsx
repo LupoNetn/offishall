@@ -79,7 +79,7 @@ const Cart = () => {
                   </div>
                   <div className="flex items-center justify-between mt-2">
                     <span className="text-gray-800 font-semibold text-sm sm:text-base">
-                      ${item.price.toFixed(2)}
+                      #{item.price.toFixed(2)}
                     </span>
                     <button
                       onClick={() => removeFromCart(item)}
