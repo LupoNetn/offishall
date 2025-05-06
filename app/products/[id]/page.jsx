@@ -3,15 +3,16 @@
 import { supabase } from "../../../lib/supabase-client";
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
+import { use } from "react";
 import { CartContext } from "../../../context/CartContext";
 
 const ProductDetails = ({ params }) => {
-  const { id } = params;
+  const { id } = use(params);
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const {addToCart,totalQuantity} = useContext(CartContext)
+  const {addToCart} = useContext(CartContext)
 
   useEffect(() => {
     const getProduct = async () => {
@@ -86,7 +87,7 @@ const ProductDetails = ({ params }) => {
           </div>
 
           <div className="flex items-center space-x-6 mt-4">
-            <button onClick={addToCart} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold transition">
+            <button onClick={addToCart(product)} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold transition">
               Add to Cart
             </button>
           </div>
