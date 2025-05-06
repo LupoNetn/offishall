@@ -233,7 +233,7 @@ const Page = () => {
                     </td>
                     <td className="py-4 px-4 sm:px-6">
                       <span className="text-orange-500 font-medium">
-                        ${product.price}
+                        #{product.price}
                       </span>
                     </td>
                     <td className="hidden lg:table-cell py-4 px-4 sm:px-6">

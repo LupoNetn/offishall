@@ -87,7 +87,7 @@ const ProductDetails = ({ params }) => {
           </div>
 
           <div className="flex items-center space-x-6 mt-4">
-            <button onClick={addToCart(product)} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold transition">
+            <button onClick={() => addToCart(product)} className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-semibold transition">
               Add to Cart
             </button>
           </div>

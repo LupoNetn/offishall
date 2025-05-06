@@ -4,8 +4,8 @@ import { MdInventory, MdShoppingCart, MdAnalytics, MdMenu, MdClose } from 'react
 
 const icons = [
     {icon: <MdInventory size={24} />, name: 'Products'},
-    {icon: <MdShoppingCart size={24} />, name: 'Orders'},
-    {icon: <MdAnalytics size={24} />, name: 'Analytics'},
+    // {icon: <MdShoppingCart size={24} />, name: 'Orders'},
+    // {icon: <MdAnalytics size={24} />, name: 'Analytics'},
 ]
 
 const AdminSidebar = () => {
@@ -17,7 +17,7 @@ const AdminSidebar = () => {
       {/* Mobile Toggle Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 right-4 z-50 sm:hidden bg-gray-900 p-2 rounded-lg border border-gray-800 shadow-lg hover:bg-gray-800 transition-all duration-200"
+        className="absolute top-2 right-15 z-50 sm:hidden bg-gray-900 p-2 rounded-lg border border-gray-800 shadow-lg hover:bg-gray-800 transition-all duration-200"
       >
         {isOpen ? <MdClose size={24} className="text-orange-500" /> : <MdMenu size={24} className="text-orange-500" />}
       </button>
